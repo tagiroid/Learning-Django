@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
@@ -21,7 +21,7 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     # shows the only topic and all theirs posts
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(id=topic_id)
     # if user own for this topic
     if topic.owner != request.user:
         raise Http404
